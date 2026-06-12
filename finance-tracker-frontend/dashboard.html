@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FinTrack Pro Dashboard</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div class="topbar-left">
+
+            <div class="logo">
+                💸 FinTrack Pro
+            </div>
+
+            <div class="welcome-text">
+
+                <h2>
+                    Welcome Back,
+                    <span id="username">User</span> 👋
+                </h2>
+
+                <p>
+                    Your personal finance command center
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="topbar-right">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchTransaction"
+                    placeholder="Search transactions..."
+                >
+
+            </div>
+
+            <button class="notification-btn">
+                🔔
+            </button>
+
+            <div class="profile-box">
+
+                <img
+                    src="https://i.pravatar.cc/120"
+                    alt="profile"
+                >
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- HERO BALANCE -->
+
+    <section class="hero-balance">
+
+        <div class="hero-content">
+
+            <span>Total Portfolio Value</span>
+
+            <h1 id="balance">
+                ₹0
+            </h1>
+
+            <p>
+                Updated in real time
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- KPI SECTION -->
+
+    <section class="stats-grid">
+
+        <div class="stat-card income-card">
+
+            <div>
+
+                <p>Total Income</p>
+
+                <h2 id="income">
+                    ₹0
+                </h2>
+
+            </div>
+
+            <div class="card-icon">
+                📈
+            </div>
+
+        </div>
+
+        <div class="stat-card expense-card">
+
+            <div>
+
+                <p>Total Expense</p>
+
+                <h2 id="expense">
+                    ₹0
+                </h2>
+
+            </div>
+
+            <div class="card-icon">
+                📉
+            </div>
+
+        </div>
+
+        <div class="stat-card savings-card">
+
+            <div>
+
+                <p>Total Savings</p>
+
+                <h2 id="savings">
+                    ₹0
+                </h2>
+
+            </div>
+
+            <div class="card-icon">
+                🎯
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div>
+
+                <p>Investments</p>
+
+                <h2>
+                    ₹85,000
+                </h2>
+
+            </div>
+
+            <div class="card-icon">
+                📊
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- MAIN GRID -->
+
+    <section class="dashboard-grid">
+
+        <!-- LEFT -->
+
+        <div class="left-column">
+
+            <!-- CHART -->
+
+            <div class="glass-card analytics-card">
+
+                <div class="card-header">
+                    <h3>Finance Analytics</h3>
+                </div>
+
+                <canvas id="financeChart"></canvas>
+
+            </div>
+
+            <!-- MONTHLY OVERVIEW -->
+
+            <div class="glass-card">
+
+                <div class="card-header">
+                    <h3>Monthly Overview</h3>
+                </div>
+
+                <div class="overview-grid">
+
+                    <div>
+                        <h2>₹45,000</h2>
+                        <p>Income</p>
+                    </div>
+
+                    <div>
+                        <h2>₹18,500</h2>
+                        <p>Expense</p>
+                    </div>
+
+                    <div>
+                        <h2>₹26,500</h2>
+                        <p>Net Savings</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- TRANSACTIONS -->
+
+            <div class="glass-card transaction-list-card">
+
+                <div class="card-header">
+                    <h3>Recent Transactions</h3>
+                </div>
+
+                <div id="transactions"></div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+
+        <div class="right-column">
+
+            <!-- ADD TRANSACTION -->
+
+            <div class="glass-card">
+
+                <div class="card-header">
+                    <h3>Add Transaction</h3>
+                </div>
+
+                <div class="transaction-form">
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Transaction Title"
+                    >
+
+                    <input
+                        type="number"
+                        id="amount"
+                        placeholder="Amount"
+                    >
+
+                    <select id="type">
+
+                        <option value="income">
+                            Income
+                        </option>
+
+                        <option value="expense">
+                            Expense
+                        </option>
+
+                    </select>
+
+                    <button onclick="addTransaction()">
+                        Add Transaction
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- BUDGET -->
+
+            <div class="glass-card">
+
+                <div class="card-header">
+                    <h3>Budget Tracker</h3>
+                </div>
+
+                <h2>
+                    ₹50,000 / ₹80,000
+                </h2>
+
+                <div class="progress-bar">
+                    <div class="progress-fill purple" style="width:62%"></div>
+                </div>
+
+                <p>
+                    62% Budget Used
+                </p>
+
+            </div>
+
+            <!-- SAVINGS GOAL -->
+
+            <div class="glass-card">
+
+                <div class="card-header">
+                    <h3>Savings Goal</h3>
+                </div>
+
+                <h2>
+                    ₹60,000 / ₹100,000
+                </h2>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:60%"></div>
+                </div>
+
+                <p>
+                    Goal Progress
+                </p>
+
+            </div>
+
+            <!-- TOP CATEGORIES -->
+
+            <div class="glass-card">
+
+                <div class="card-header">
+                    <h3>Top Categories</h3>
+                </div>
+
+                <ul class="insights">
+
+                    <li>🍔 Food - ₹8,500</li>
+                    <li>🛍 Shopping - ₹6,300</li>
+                    <li>⛽ Transport - ₹2,900</li>
+                    <li>🎬 Entertainment - ₹2,100</li>
+
+                </ul>
+
+            </div>
+
+            <!-- UPCOMING BILLS -->
+
+            <div class="glass-card">
+
+                <div class="card-header">
+                    <h3>Upcoming Bills</h3>
+                </div>
+
+                <ul class="insights">
+
+                    <li>⚡ Electricity - ₹1,200</li>
+                    <li>🌐 Internet - ₹999</li>
+                    <li>📱 Mobile - ₹399</li>
+
+                </ul>
+
+            </div>
+
+            <!-- FINANCIAL HEALTH -->
+
+            <div class="glass-card">
+
+                <div class="card-header">
+                    <h3>Financial Health</h3>
+                </div>
+
+                <h1 style="font-size:60px;text-align:center;">
+                    82
+                </h1>
+
+                <p style="text-align:center;">
+                    Excellent Financial Health
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- BOTTOM SECTION -->
+
+    <section class="stats-grid" style="margin-top:25px;">
+
+        <div class="glass-card">
+
+            <div class="card-header">
+                <h3>Recent Activity</h3>
+            </div>
+
+            <ul class="insights">
+
+                <li>💰 Salary Added</li>
+                <li>🛒 Grocery Expense Added</li>
+                <li>🎯 Savings Updated</li>
+                <li>📈 Budget Improved</li>
+
+            </ul>
+
+        </div>
+
+        <div class="glass-card">
+
+            <div class="card-header">
+                <h3>30 Day Savings Challenge</h3>
+            </div>
+
+            <h2>
+                ₹7,500 Saved
+            </h2>
+
+            <div class="progress-bar">
+                <div class="progress-fill" style="width:75%"></div>
+            </div>
+
+            <p>
+                75% Completed
+            </p>
+
+        </div>
+
+        <div class="glass-card">
+
+            <div class="card-header">
+                <h3>Quick Insights</h3>
+            </div>
+
+            <ul class="insights">
+
+                <li>🔥 Best Month So Far</li>
+                <li>📈 Income Up 18%</li>
+                <li>💸 Spending Down 12%</li>
+                <li>🎯 Goal On Track</li>
+
+            </ul>
+
+        </div>
+
+    </section>
+
+    <!-- ACTION BAR -->
+<section class="action-bar">
+
+    <button onclick="showDashboard()">
+        🏠 Dashboard
+    </button>
+
+    <button onclick="showTransactions()">
+        💳 Transactions
+    </button>
+
+    <button onclick="showGoals()">
+        🎯 Goals
+    </button>
+
+    <button onclick="showReports()">
+        📊 Reports
+    </button>
+
+    <button onclick="logout()">
+        🚪 Logout
+    </button>
+
+</section>
+</div>
+
+<script src="js/dashboard.js"></script>
+
+</body>
+</html>
